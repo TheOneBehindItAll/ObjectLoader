@@ -1,9 +1,9 @@
 bl_info = {
-    "name": "Object Loader",
+    "name": "Custom Object Loader",
     "author": "Mastermind",
     "version": (0, 5,1),
     "blender": (3, 40, 0),
-    "description": "An addon for adding custom objects to Add>Mesh"
+    "description": "This addon is used to add your own custom objects to the Add>Mesh menu in Blender. To do so, go to the N pannel and navigate to the Loader tab. From there, set your desired amount of objects (Max of five at the moment) and click on the object you want to set. Once you have set your desired file path (Fbx) and object name, restart Blender. After you boot blender back up your object should be in the Add>Mesh menu."
 }
 
 import bpy
