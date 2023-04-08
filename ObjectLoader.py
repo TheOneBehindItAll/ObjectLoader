@@ -35,7 +35,7 @@ else:
     f = open(str(Path.home()) + "\Documents\ObjectLoader\SlotFiveName.txt", "x")
     b = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "x")
     numberofslots = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "w")
-    numberofslots.truncate(0)
+    #numberofslots.truncate(0)
     numberofslots.write("0")
 
 
@@ -66,7 +66,9 @@ class OBJECT_PT_TextTool(bpy.types.Panel):
         numbr = int(file1.read(100))
         row = layout.row()
 
-        row.operator("wm.slounumb", text="Number of objects", )
+        row.operator("wm.slounumb", text="+", )
+        row = layout.row()
+        row.operator("wm.slounumbdown", text="-", )
         row = layout.row()
         row.label(text="Objects")
         row = layout.row()
@@ -107,22 +109,54 @@ selected_faces = None
 class WM_OT_slot_numb(bpy.types.Operator):
     """Set the number"""
     bl_idname = "wm.slounumb"
-    bl_label = "number of slots"
+    bl_label = "+"
     home = str(Path.home())
     file1 = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "r")
-    text: bpy.props.StringProperty(name="Number of slots (Must restart blender for changes to take effect", default=file1.read(100))
+    #text: bpy.props.StringProperty(name="Number of slots (Must restart blender for changes to take effect", default=file1.read(100))
     file1.close()
 
 
-    def invoke(self, context, event):
-        wm = context.window_manager
-        return wm.invoke_props_dialog(self)
+   # def invoke(self, context, event):
+      #  wm = context.window_manager
+        #return wm.invoke_props_dialog(self)
 
     def execute(self, context):
-        numb = self.text
+        File = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "r")
+        numb = int(File.read(100))
+        File.close()
+        if numb != 4:
+            numb += 1
+        print(numb)
         file1 = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "a")
         file1.truncate(0)
-        file1.write(numb)
+        file1.write(str(numb))
+        file1.close()
+        return {'FINISHED'}
+
+class WM_OT_slot_numbMinus(bpy.types.Operator):
+    """Set the number down"""
+    bl_idname = "wm.slounumbdown"
+    bl_label = "-"
+    home = str(Path.home())
+    file1 = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "r")
+    #text: bpy.props.StringProperty(name="Number of slots (Must restart blender for changes to take effect", default=file1.read(100))
+    file1.close()
+
+
+   # def invoke(self, context, event):
+      #  wm = context.window_manager
+        #return wm.invoke_props_dialog(self)
+
+    def execute(self, context):
+        File = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "r")
+        numb = int(File.read(100))
+        File.close()
+        if numb != 0:
+            numb -= 1
+        print(numb)
+        file1 = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "a")
+        file1.truncate(0)
+        file1.write(str(numb))
         file1.close()
         return {'FINISHED'}
  
@@ -365,6 +399,9 @@ class ImportOne(bpy.types.Operator):
     home = str(Path.home())
     file1 = open(str(Path.home())+"\Documents/ObjectLoader/SlotOneName.txt", "r")
     my_path = file1.read(100)
+    if my_path == "":
+        my_path = "ADD OBJECT HERE"
+
     bl_label = my_path  # Display name in the interface.
     file1.close()
     bl_options = {'REGISTER', 'UNDO'}
@@ -395,6 +432,8 @@ class ImportTwo(bpy.types.Operator):
     home = str(Path.home())
     file1 = open(str(Path.home())+"\Documents/ObjectLoader/SlotTwoName.txt", "r")
     my_path = file1.read(100)
+    if my_path == "":
+        my_path = "ADD OBJECT HERE"
     bl_label = my_path  # Display name in the interface.
     bl_options = {'REGISTER', 'UNDO'}
 
@@ -402,6 +441,8 @@ class ImportTwo(bpy.types.Operator):
         home = str(Path.home())
         file1 = open(str(Path.home())+"\Documents/ObjectLoader/SlotTwo.txt", "r")
         my_path = file1.read(100)
+        if my_path == "":
+            my_path = "ADD OBJECT HERE"
         print(my_path)
         file1.close()
         if os.path.exists(my_path):
@@ -427,6 +468,8 @@ class ImportThree(bpy.types.Operator):
         home = str(Path.home())
         file1 = open(str(Path.home())+"\Documents/ObjectLoader/SlotThree.txt", "r")
         my_path = file1.read(100)
+        if my_path == "":
+            my_path = "ADD OBJECT HERE"
         print(my_path)
         file1.close()
         if os.path.exists(my_path):
@@ -452,6 +495,8 @@ class ImportFour(bpy.types.Operator):
         home = str(Path.home())
         file1 = open(str(Path.home())+"\Documents/ObjectLoader/SlotFour.txt", "r")
         my_path = file1.read(100)
+        if my_path == "":
+            my_path = "ADD OBJECT HERE"
         print(my_path)
         file1.close()
         if os.path.exists(my_path):
@@ -477,6 +522,8 @@ class ImportFive(bpy.types.Operator):
         home = str(Path.home())
         file1 = open(str(Path.home())+"\Documents/ObjectLoader/SlotFive.txt", "r")
         my_path = file1.read(100)
+        if my_path == "":
+            my_path = "ADD OBJECT HERE"
         print(my_path)
         file1.close()
         if os.path.exists(my_path):
@@ -515,11 +562,16 @@ def menu_func(self, context):
  
  
 def register():
-    file1 = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "r")
-    numbr = int(file1.read(100))
+    numberofslots = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "w")
+    # numberofslots.truncate(0)
+    numberofslots.write("0")
+
+   # file1 = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "r")
+   # numbr = int(file1.read(100))
 
 
     bpy.utils.register_class(WM_OT_slot_numb)
+    bpy.utils.register_class(WM_OT_slot_numbMinus)
 
 
     bpy.utils.register_class(ImportOne)
@@ -540,12 +592,13 @@ def register():
 
     bpy.utils.register_class(WM_OT_textOpBasic5)
 
-    file1.close()
+   # file1.close()
 
 def unregister():
     slotnumb2 = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "r")
     numbr = int(slotnumb2.read(100))
     bpy.utils.unregister_class(WM_OT_slot_numb)
+    bpy.utils.unregister_class(WM_OT_slot_numbMinus)
     bpy.types.VIEW3D_MT_mesh_add.remove(menu_func)
     bpy.utils.unregister_class(ImportOne)
     bpy.utils.unregister_class(ImportTwo)
