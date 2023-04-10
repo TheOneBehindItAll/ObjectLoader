@@ -111,9 +111,6 @@ class WM_OT_slot_numb(bpy.types.Operator):
     bl_idname = "wm.slounumb"
     bl_label = "+"
     home = str(Path.home())
-    file1 = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "r")
-    #text: bpy.props.StringProperty(name="Number of slots (Must restart blender for changes to take effect", default=file1.read(100))
-    file1.close()
 
 
    # def invoke(self, context, event):
@@ -138,9 +135,6 @@ class WM_OT_slot_numbMinus(bpy.types.Operator):
     bl_idname = "wm.slounumbdown"
     bl_label = "-"
     home = str(Path.home())
-    file1 = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "r")
-    #text: bpy.props.StringProperty(name="Number of slots (Must restart blender for changes to take effect", default=file1.read(100))
-    file1.close()
 
 
    # def invoke(self, context, event):
@@ -562,9 +556,6 @@ def menu_func(self, context):
  
  
 def register():
-    numberofslots = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "w")
-    # numberofslots.truncate(0)
-    numberofslots.write("0")
 
    # file1 = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "r")
    # numbr = int(file1.read(100))
