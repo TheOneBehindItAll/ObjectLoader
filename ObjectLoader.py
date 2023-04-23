@@ -446,8 +446,15 @@ class ImportTwo(bpy.types.Operator):
             my_path = "ADD OBJECT HERE"
         print(my_path)
         file1.close()
+        print(my_path)
+        if my_path.startswith('"'):
+            my_path = my_path[1:len(my_path) - 1]
+            print("Removing marks")
+        print("New= " + my_path)
         if os.path.exists(my_path):
             print("File loaded")
+
+            print(my_path)
             bpy.ops.import_scene.fbx(filepath=my_path)
         else:
             print("File could not be found")
@@ -473,8 +480,15 @@ class ImportThree(bpy.types.Operator):
             my_path = "ADD OBJECT HERE"
         print(my_path)
         file1.close()
+        print(my_path)
+        if my_path.startswith('"'):
+            my_path = my_path[1:len(my_path) - 1]
+            print("Removing marks")
+        print("New= " + my_path)
         if os.path.exists(my_path):
             print("File loaded")
+
+            print(my_path)
             bpy.ops.import_scene.fbx(filepath=my_path)
         else:
             print("File could not be found")
@@ -500,8 +514,15 @@ class ImportFour(bpy.types.Operator):
             my_path = "ADD OBJECT HERE"
         print(my_path)
         file1.close()
+        print(my_path)
+        if my_path.startswith('"'):
+            my_path = my_path[1:len(my_path) - 1]
+            print("Removing marks")
+        print("New= " + my_path)
         if os.path.exists(my_path):
             print("File loaded")
+
+            print(my_path)
             bpy.ops.import_scene.fbx(filepath=my_path)
         else:
             print("File could not be found")
@@ -528,8 +549,15 @@ class ImportFive(bpy.types.Operator):
 
         print(my_path)
         file1.close()
+        print(my_path)
+        if my_path.startswith('"'):
+            my_path = my_path[1:len(my_path) - 1]
+            print("Removing marks")
+        print("New= " + my_path)
         if os.path.exists(my_path):
             print("File loaded")
+
+            print(my_path)
             bpy.ops.import_scene.fbx(filepath=my_path)
         else:
             print("File could not be found")
