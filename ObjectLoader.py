@@ -395,7 +395,7 @@ class ImportOne(bpy.types.Operator):
     my_path = file1.read(100)
     if my_path == "":
         my_path = "ADD OBJECT HERE"
-
+    print(my_path)
     bl_label = my_path  # Display name in the interface.
     file1.close()
     bl_options = {'REGISTER', 'UNDO'}
@@ -406,10 +406,15 @@ class ImportOne(bpy.types.Operator):
         home = str(Path.home())
         file1 = open(str(Path.home())+"\Documents/ObjectLoader/SlotOne.txt","r")
         my_path = file1.read(100)
-        print(my_path)
+
         file1.close()
+        print(my_path)
+        my_path = my_path[1:len(my_path) - 1]
+        print("New= " + my_path)
         if os.path.exists(my_path):
             print("File loaded")
+
+            print(my_path)
             bpy.ops.import_scene.fbx(filepath=my_path)
         else:
             print("File could not be found")
@@ -518,6 +523,7 @@ class ImportFive(bpy.types.Operator):
         my_path = file1.read(100)
         if my_path == "":
             my_path = "ADD OBJECT HERE"
+
         print(my_path)
         file1.close()
         if os.path.exists(my_path):
