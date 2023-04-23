@@ -409,7 +409,9 @@ class ImportOne(bpy.types.Operator):
 
         file1.close()
         print(my_path)
-        my_path = my_path[1:len(my_path) - 1]
+        if my_path.startswith('"'):
+            my_path = my_path[1:len(my_path) - 1]
+            print("Removing marks")
         print("New= " + my_path)
         if os.path.exists(my_path):
             print("File loaded")
