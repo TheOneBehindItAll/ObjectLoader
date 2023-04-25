@@ -13,6 +13,8 @@ from bpy.types import Operator
 from bpy.props import FloatVectorProperty
 from bpy_extras.object_utils import AddObjectHelper, object_data_add
 from mathutils import Vector
+from bpy_extras.io_utils import ImportHelper
+
 
 
 from pathlib import Path
@@ -40,7 +42,9 @@ else:
 
 
  
-texts = "" 
+texts = ""
+
+
  
 class OBJECT_PT_TextTool(bpy.types.Panel):
     bl_label = "PrivativeObjectLoader"
@@ -79,7 +83,9 @@ class OBJECT_PT_TextTool(bpy.types.Panel):
         row = layout.row()
 
         if numbr >= 1:
-          row.operator("wm.textopbasic2", text="Object Two", )
+           # row.operator("test.open_filebrowser", text="File")
+           # row = layout.row()
+            row.operator("wm.textopbasic2", text="Object Two", )
 
         row = layout.row()
 
@@ -97,11 +103,16 @@ class OBJECT_PT_TextTool(bpy.types.Panel):
 
         row = layout.row()
         row.label(text="Restart Blender for changes to take effect")
- 
- 
- 
- 
- 
+
+
+class OT_TestOpenFilebrowser(Operator, ImportHelper):
+    bl_idname = "test.open_filebrowser"
+    bl_label = "Open the file browser (yay)"
+
+    def execute(self, context):
+        """Do something with the selected file(s)."""
+        return {'FINISHED'}
+
 
 selected_faces = None
 
@@ -192,7 +203,7 @@ class WM_OT_textOpBasic(bpy.types.Operator):
         file1.truncate(0)
         file1.write(selected_faces)
         file1.close()
-
+       # print(self.filepath)
         home = str(Path.home())
         file2 = open(str(Path.home())+"\Documents\ObjectLoader\SlotOneName.txt", "a")
         file2.truncate(0)
@@ -213,7 +224,7 @@ class WM_OT_textOpBasic(bpy.types.Operator):
 class WM_OT_textOpBasic2(bpy.types.Operator):
     """Set The objects2"""
     bl_idname = "wm.textopbasic2"
-    bl_label = "Paste the fbx file path (No Quotation marks)"
+    bl_label = "Paste the fbx file path"
     home = str(Path.home())
     file1 = open(str(Path.home())+"\Documents\ObjectLoader\SlotTwo.txt", "r")
     file2 = open(str(Path.home())+"\Documents\ObjectLoader\SlotTwoName.txt", "r")
@@ -259,7 +270,7 @@ class WM_OT_textOpBasic2(bpy.types.Operator):
 class WM_OT_textOpBasic3(bpy.types.Operator):
     """Set The objects3"""
     bl_idname = "wm.textopbasic3"
-    bl_label = "Paste the fbx file path (No Quotation marks)"
+    bl_label = "Paste the fbx file path"
     home = str(Path.home())
     file1 = open(str(Path.home())+"\Documents\ObjectLoader\SlotThree.txt", "r")
     file2 = open(str(Path.home())+"\Documents\ObjectLoader\SlotThreeName.txt", "r")
@@ -304,7 +315,7 @@ class WM_OT_textOpBasic3(bpy.types.Operator):
 class WM_OT_textOpBasic4(bpy.types.Operator):
     """Set The objects4"""
     bl_idname = "wm.textopbasic4"
-    bl_label = "Paste the fbx file path (No Quotation marks)"
+    bl_label = "Paste the fbx file path"
     home = str(Path.home())
     file1 = open(str(Path.home())+"\Documents\ObjectLoader\SlotFour.txt", "r")
     file2 = open(str(Path.home())+"\Documents\ObjectLoader\SlotFourName.txt", "r")
@@ -348,7 +359,7 @@ class WM_OT_textOpBasic4(bpy.types.Operator):
 class WM_OT_textOpBasic5(bpy.types.Operator):
     """Set The objects5"""
     bl_idname = "wm.textopbasic5"
-    bl_label = "Paste the fbx file path (No Quotation marks)"
+    bl_label = "Paste the fbx file path"
     home = str(Path.home())
     file1 = open(str(Path.home())+"\Documents\ObjectLoader\SlotFive.txt", "r")
     file2 = open(str(Path.home())+"\Documents\ObjectLoader\SlotFiveName.txt", "r")
@@ -600,7 +611,7 @@ def register():
     bpy.utils.register_class(WM_OT_slot_numb)
     bpy.utils.register_class(WM_OT_slot_numbMinus)
 
-
+    #bpy.utils.register_class(OT_TestOpenFilebrowser)
     bpy.utils.register_class(ImportOne)
     bpy.utils.register_class(ImportTwo)
     bpy.utils.register_class(ImportThree)
@@ -633,6 +644,8 @@ def unregister():
     bpy.utils.unregister_class(ImportFour)
     bpy.utils.unregister_class(ImportFive)
     bpy.utils.unregister_class(OBJECT_PT_TextTool)
+
+   # bpy.utils.unregister_class(OT_TestOpenFilebrowser)
 
     try:
         bpy.utils.unregister_class(WM_OT_textOpBasic)
