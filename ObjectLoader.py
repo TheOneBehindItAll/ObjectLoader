@@ -22,8 +22,10 @@ from pathlib import Path
 
 
 if os.path.exists(str(Path.home()) + "\Documents\ObjectLoader"):
-    print("Folder Exists")
+    print("Object Loader Folder Found")
 else:
+    print("Object Loader Folder Not Found")
+    print("Created one at " + str(Path.home()) + " Documents/ObjectLoader")
     os.mkdir(str(Path.home()) + "\Documents\ObjectLoader", 0o666)
     f = open(str(Path.home()) + "\Documents\ObjectLoader\SlotOne.txt","x")
     f = open(str(Path.home()) + "\Documents\ObjectLoader\SlotOneName.txt", "x")
@@ -39,37 +41,22 @@ else:
     numberofslots = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "w")
     #numberofslots.truncate(0)
     numberofslots.write("0")
-
-
- 
 texts = ""
-
-
- 
 class OBJECT_PT_TextTool(bpy.types.Panel):
     bl_label = "PrivativeObjectLoader"
     bl_idname = "OBJECT_PT_texttool"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
     bl_category = "Loader"
-
- 
     def draw(self, context):
         layout = self.layout
-
-
         row = layout.row()
-
         row = layout.row()
-        row.label(text= "Number of objects")
+        row.label(text= "Custom object loader by The Mastermind#3395")
         row = layout.column()
-        
-       # row = layout.split(factor= -0.9)
-
         file1 = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "r")
         numbr = int(file1.read(100))
         row = layout.row()
-
         row.operator("wm.slounumb", text="+", )
         row = layout.row()
         row.operator("wm.slounumbdown", text="-", )
@@ -78,63 +65,32 @@ class OBJECT_PT_TextTool(bpy.types.Panel):
         row = layout.row()
         if numbr >= 0:
            row.operator("wm.textopbasic", text= "Object One", )
-
-
         row = layout.row()
-
         if numbr >= 1:
-           # row.operator("test.open_filebrowser", text="File")
-           # row = layout.row()
             row.operator("wm.textopbasic2", text="Object Two", )
-
         row = layout.row()
-
         if numbr >= 2:
              row.operator("wm.textopbasic3", text="Object Three", )
         row = layout.row()
-
         if numbr >= 3:
             row.operator("wm.textopbasic4", text="Object Four", )
-
         row = layout.row()
-
         if numbr >= 4:
             row.operator("wm.textopbasic5", text="Object Five", )
-
         row = layout.row()
         row.label(text="Restart Blender for changes to take effect")
-
-
-class OT_TestOpenFilebrowser(Operator, ImportHelper):
-    bl_idname = "test.open_filebrowser"
-    bl_label = "Open the file browser (yay)"
-
-    def execute(self, context):
-        """Do something with the selected file(s)."""
-        return {'FINISHED'}
-
-
 selected_faces = None
-
-
 class WM_OT_slot_numb(bpy.types.Operator):
-    """Set the number"""
+    """Increse Slots"""
     bl_idname = "wm.slounumb"
     bl_label = "+"
     home = str(Path.home())
-
-
-   # def invoke(self, context, event):
-      #  wm = context.window_manager
-        #return wm.invoke_props_dialog(self)
-
     def execute(self, context):
         File = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "r")
         numb = int(File.read(100))
         File.close()
         if numb != 4:
             numb += 1
-        print(numb)
         file1 = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "a")
         file1.truncate(0)
         file1.write(str(numb))
@@ -142,23 +98,16 @@ class WM_OT_slot_numb(bpy.types.Operator):
         return {'FINISHED'}
 
 class WM_OT_slot_numbMinus(bpy.types.Operator):
-    """Set the number down"""
+    """Decrese Slots"""
     bl_idname = "wm.slounumbdown"
     bl_label = "-"
     home = str(Path.home())
-
-
-   # def invoke(self, context, event):
-      #  wm = context.window_manager
-        #return wm.invoke_props_dialog(self)
-
     def execute(self, context):
         File = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "r")
         numb = int(File.read(100))
         File.close()
         if numb != 0:
             numb -= 1
-        print(numb)
         file1 = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "a")
         file1.truncate(0)
         file1.write(str(numb))
@@ -170,12 +119,10 @@ class WM_OT_slot_numbMinus(bpy.types.Operator):
 class WM_OT_textOpBasic(bpy.types.Operator):
     """Set The objects"""
     bl_idname = "wm.textopbasic"
-    bl_label = "                            FilePath"
+    bl_label = "Paste the fbx file path"
     home = str(Path.home())
     file1 = open(str(Path.home())+"\Documents\ObjectLoader\SlotOne.txt", "r")
     file2 = open(str(Path.home())+"\Documents\ObjectLoader\SlotOneName.txt", "r")
-
-
     text : bpy.props.StringProperty(name="Set your filepath", default=file1.read(100))
     text2: bpy.props.StringProperty(name="Set the name", default=file2.read(100))
     file1.close()
@@ -184,17 +131,9 @@ class WM_OT_textOpBasic(bpy.types.Operator):
     selected_faces = None
     def __init__(self):
         selected_faces = None
-        
-        
-        
     def invoke(self, context, event):
         wm = context.window_manager
         return wm.invoke_props_dialog(self)
-    
-   
-    
-        
- 
     def execute(self, context):
         nameFile = self.text2
         selected_faces =self.text
@@ -203,18 +142,11 @@ class WM_OT_textOpBasic(bpy.types.Operator):
         file1.truncate(0)
         file1.write(selected_faces)
         file1.close()
-       # print(self.filepath)
         home = str(Path.home())
         file2 = open(str(Path.home())+"\Documents\ObjectLoader\SlotOneName.txt", "a")
         file2.truncate(0)
         file2.write(nameFile)
         file2.close()
-        print("" +nameFile)
-        
-       # t = self.text
-        
-        #bpy.ops.object.text_add(enter_editmode=True)
- 
         return {'FINISHED'}
 
 
@@ -233,14 +165,11 @@ class WM_OT_textOpBasic2(bpy.types.Operator):
     file1.close()
     file2.close()
     selected_faces = None
-
     def __init__(self):
         selected_faces = None
-
     def invoke(self, context, event):
         wm = context.window_manager
         return wm.invoke_props_dialog(self)
-
     def execute(self, context):
         selected_faces = self.text
         home = str(Path.home())
@@ -248,19 +177,11 @@ class WM_OT_textOpBasic2(bpy.types.Operator):
         file1.truncate(0)
         file1.write(selected_faces)
         file1.close()
-        print("" + selected_faces)
         nameFile = self.text2
-
         file2 = open(str(Path.home())+"\Documents\ObjectLoader\SlotTwoName.txt", "a")
         file2.truncate(0)
         file2.write(nameFile)
         file2.close()
-        print("" + nameFile)
-
-        # t = self.text
-
-        # bpy.ops.object.text_add(enter_editmode=True)
-
         return {'FINISHED'}
 
 
@@ -279,14 +200,11 @@ class WM_OT_textOpBasic3(bpy.types.Operator):
     file1.close()
     file2.close()
     selected_faces = None
-
     def __init__(self):
         selected_faces = None
-
     def invoke(self, context, event):
         wm = context.window_manager
         return wm.invoke_props_dialog(self)
-
     def execute(self, context):
         selected_faces = self.text
         home = str(Path.home())
@@ -294,19 +212,11 @@ class WM_OT_textOpBasic3(bpy.types.Operator):
         file1.truncate(0)
         file1.write(selected_faces)
         file1.close()
-        print("" + selected_faces)
         nameFile = self.text2
-
         file2 = open(str(Path.home())+"\Documents\ObjectLoader\SlotThreeName.txt", "a")
         file2.truncate(0)
         file2.write(nameFile)
         file2.close()
-        print("" + nameFile)
-
-        # t = self.text
-
-        # bpy.ops.object.text_add(enter_editmode=True)
-
         return {'FINISHED'}
 
 
@@ -324,14 +234,11 @@ class WM_OT_textOpBasic4(bpy.types.Operator):
     file1.close()
     file2.close()
     selected_faces = None
-
     def __init__(self):
         selected_faces = None
-
     def invoke(self, context, event):
         wm = context.window_manager
         return wm.invoke_props_dialog(self)
-
     def execute(self, context):
         selected_faces = self.text
         home = str(Path.home())
@@ -341,17 +248,10 @@ class WM_OT_textOpBasic4(bpy.types.Operator):
         file1.close()
         print("" + selected_faces)
         nameFile = self.text2
-
         file2 = open(str(Path.home())+"\Documents\ObjectLoader\SlotFourName.txt", "a")
         file2.truncate(0)
         file2.write(nameFile)
         file2.close()
-        print("" + nameFile)
-
-        # t = self.text
-
-        # bpy.ops.object.text_add(enter_editmode=True)
-
         return {'FINISHED'}
 
 
@@ -368,14 +268,11 @@ class WM_OT_textOpBasic5(bpy.types.Operator):
     file1.close()
     file2.close()
     selected_faces = None
-
     def __init__(self):
         selected_faces = None
-
     def invoke(self, context, event):
         wm = context.window_manager
         return wm.invoke_props_dialog(self)
-
     def execute(self, context):
         selected_faces = self.text
         home = str(Path.home())
@@ -385,49 +282,35 @@ class WM_OT_textOpBasic5(bpy.types.Operator):
         file1.close()
         print("" + selected_faces)
         nameFile = self.text2
-
         file2 = open(str(Path.home())+"\Documents\ObjectLoader\SlotFiveName.txt", "a")
         file2.truncate(0)
         file2.write(nameFile)
         file2.close()
-        print("" + nameFile)
-
-        # t = self.text
-
-        # bpy.ops.object.text_add(enter_editmode=True)
-
         return {'FINISHED'}
 
 class ImportOne(bpy.types.Operator):
-    """ImportOne"""  # Use this as a tooltip for menu items and buttons.
-    bl_idname = "add.importone"  # Unique identifier for buttons and menu items to reference.
+    """ImportOne"""
+    bl_idname = "add.importone"
     home = str(Path.home())
     file1 = open(str(Path.home())+"\Documents/ObjectLoader/SlotOneName.txt", "r")
     my_path = file1.read(100)
     if my_path == "":
         my_path = "ADD OBJECT HERE"
     print(my_path)
-    bl_label = my_path  # Display name in the interface.
+    bl_label = my_path
     file1.close()
     bl_options = {'REGISTER', 'UNDO'}
-    
-        
-
     def execute(self, context):
         home = str(Path.home())
         file1 = open(str(Path.home())+"\Documents/ObjectLoader/SlotOne.txt","r")
         my_path = file1.read(100)
-
         file1.close()
-        print(my_path)
         if my_path.startswith('"'):
             my_path = my_path[1:len(my_path) - 1]
             print("Removing marks")
         print("New= " + my_path)
         if os.path.exists(my_path):
             print("File loaded")
-
-            print(my_path)
             bpy.ops.import_scene.fbx(filepath=my_path)
         else:
             print("File could not be found")
@@ -439,8 +322,8 @@ class ImportOne(bpy.types.Operator):
 
 
 class ImportTwo(bpy.types.Operator):
-    """ImportTwo"""  # Use this as a tooltip for menu items and buttons.
-    bl_idname = "add.importtwo"  # Unique identifier for buttons and menu items to reference.
+    """ImportTwo"""
+    bl_idname = "add.importtwo"
     home = str(Path.home())
     file1 = open(str(Path.home())+"\Documents/ObjectLoader/SlotTwoName.txt", "r")
     my_path = file1.read(100)
@@ -448,24 +331,19 @@ class ImportTwo(bpy.types.Operator):
         my_path = "ADD OBJECT HERE"
     bl_label = my_path  # Display name in the interface.
     bl_options = {'REGISTER', 'UNDO'}
-
     def execute(self, context):
         home = str(Path.home())
         file1 = open(str(Path.home())+"\Documents/ObjectLoader/SlotTwo.txt", "r")
         my_path = file1.read(100)
         if my_path == "":
             my_path = "ADD OBJECT HERE"
-        print(my_path)
         file1.close()
-        print(my_path)
         if my_path.startswith('"'):
             my_path = my_path[1:len(my_path) - 1]
             print("Removing marks")
         print("New= " + my_path)
         if os.path.exists(my_path):
             print("File loaded")
-
-            print(my_path)
             bpy.ops.import_scene.fbx(filepath=my_path)
         else:
             print("File could not be found")
@@ -475,46 +353,40 @@ class ImportTwo(bpy.types.Operator):
 
 
 class ImportThree(bpy.types.Operator):
-    """ImportThree"""  # Use this as a tooltip for menu items and buttons.
-    bl_idname = "add.importthree"  # Unique identifier for buttons and menu items to reference.
+    """ImportThree"""
+    bl_idname = "add.importthree"
     home = str(Path.home())
     file1 = open(str(Path.home())+"\Documents/ObjectLoader/SlotThreeName.txt", "r")
     my_path = file1.read(100)
     bl_label = my_path  # Display name in the interface.
     bl_options = {'REGISTER', 'UNDO'}
-
     def execute(self, context):
         home = str(Path.home())
         file1 = open(str(Path.home())+"\Documents/ObjectLoader/SlotThree.txt", "r")
         my_path = file1.read(100)
         if my_path == "":
             my_path = "ADD OBJECT HERE"
-        print(my_path)
         file1.close()
-        print(my_path)
         if my_path.startswith('"'):
             my_path = my_path[1:len(my_path) - 1]
             print("Removing marks")
-        print("New= " + my_path)
         if os.path.exists(my_path):
             print("File loaded")
-
-            print(my_path)
             bpy.ops.import_scene.fbx(filepath=my_path)
         else:
             print("File could not be found")
         for item in bpy.data.materials:
             item.blend_method = 'OPAQUE'
-        return {'FINISHED'}  # Lets Blender know the operator finished successfully.
+        return {'FINISHED'}
 
 
 class ImportFour(bpy.types.Operator):
-    """ImportFour"""  # Use this as a tooltip for menu items and buttons.
-    bl_idname = "add.importfour"  # Unique identifier for buttons and menu items to reference.
+    """ImportFour"""
+    bl_idname = "add.importfour"
     home = str(Path.home())
     file1 = open(str(Path.home())+"\Documents/ObjectLoader/SlotFourName.txt", "r")
     my_path = file1.read(100)
-    bl_label = my_path  # Display name in the interface.
+    bl_label = my_path
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
@@ -523,17 +395,12 @@ class ImportFour(bpy.types.Operator):
         my_path = file1.read(100)
         if my_path == "":
             my_path = "ADD OBJECT HERE"
-        print(my_path)
         file1.close()
-        print(my_path)
         if my_path.startswith('"'):
             my_path = my_path[1:len(my_path) - 1]
             print("Removing marks")
-        print("New= " + my_path)
         if os.path.exists(my_path):
             print("File loaded")
-
-            print(my_path)
             bpy.ops.import_scene.fbx(filepath=my_path)
         else:
             print("File could not be found")
@@ -550,25 +417,18 @@ class ImportFive(bpy.types.Operator):
     my_path = file1.read(100)
     bl_label = my_path  # Display name in the interface.
     bl_options = {'REGISTER', 'UNDO'}
-
     def execute(self, context):
         home = str(Path.home())
         file1 = open(str(Path.home())+"\Documents/ObjectLoader/SlotFive.txt", "r")
         my_path = file1.read(100)
         if my_path == "":
             my_path = "ADD OBJECT HERE"
-
-        print(my_path)
         file1.close()
-        print(my_path)
         if my_path.startswith('"'):
             my_path = my_path[1:len(my_path) - 1]
             print("Removing marks")
-        print("New= " + my_path)
         if os.path.exists(my_path):
             print("File loaded")
-
-            print(my_path)
             bpy.ops.import_scene.fbx(filepath=my_path)
         else:
             print("File could not be found")
@@ -580,38 +440,20 @@ class ImportFive(bpy.types.Operator):
 def menu_func(self, context):
     file1 = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "r")
     numbr = int(file1.read(100))
-
     if numbr >= 0:
          self.layout.operator(ImportOne.bl_idname)
-
     if numbr >= 1:
         self.layout.operator(ImportTwo.bl_idname)
-
     if numbr >= 2:
         self.layout.operator(ImportThree.bl_idname)
-
     if numbr >= 3:
         self.layout.operator(ImportFour.bl_idname)
-
     if numbr >= 4:
         self.layout.operator(ImportFive.bl_idname)
- 
-    
- 
- 
- 
- 
- 
+
 def register():
-
-   # file1 = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "r")
-   # numbr = int(file1.read(100))
-
-
     bpy.utils.register_class(WM_OT_slot_numb)
     bpy.utils.register_class(WM_OT_slot_numbMinus)
-
-    #bpy.utils.register_class(OT_TestOpenFilebrowser)
     bpy.utils.register_class(ImportOne)
     bpy.utils.register_class(ImportTwo)
     bpy.utils.register_class(ImportThree)
@@ -619,18 +461,11 @@ def register():
     bpy.utils.register_class(ImportFive)
     bpy.types.VIEW3D_MT_mesh_add.append(menu_func)
     bpy.utils.register_class(OBJECT_PT_TextTool)
-
     bpy.utils.register_class(WM_OT_textOpBasic)
-
     bpy.utils.register_class(WM_OT_textOpBasic2)
-
     bpy.utils.register_class(WM_OT_textOpBasic3)
-
     bpy.utils.register_class(WM_OT_textOpBasic4)
-
     bpy.utils.register_class(WM_OT_textOpBasic5)
-
-   # file1.close()
 
 def unregister():
     slotnumb2 = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "r")
@@ -644,32 +479,29 @@ def unregister():
     bpy.utils.unregister_class(ImportFour)
     bpy.utils.unregister_class(ImportFive)
     bpy.utils.unregister_class(OBJECT_PT_TextTool)
-
-   # bpy.utils.unregister_class(OT_TestOpenFilebrowser)
-
     try:
         bpy.utils.unregister_class(WM_OT_textOpBasic)
     except:
-        print("An exception occurred")
+        print("")
     try:
         bpy.utils.unregister_class(WM_OT_textOpBasic2)
     except:
-        print("An exception occurred")
+        print("")
 
     try:
         bpy.utils.unregister_class(WM_OT_textOpBasic3)
     except:
-        print("An exception occurred")
+        print("")
 
     try:
         bpy.utils.unregister_class(WM_OT_textOpBasic4)
     except:
-        print("An exception occurred")
+        print("")
 
     try:
         bpy.utils.unregister_class(WM_OT_textOpBasic5)
     except:
-        print("An exception occurred")
+        print("")
 
 
 
