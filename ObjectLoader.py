@@ -3,7 +3,7 @@ bl_info = {
     "author": "Mastermind",
     "version": (0, 5,1),
     "blender": (3, 40, 0),
-    "description": "This addon is used to add your own custom objects to the Add>Mesh menu in Blender. To do so, go to the N pannel and navigate to the Loader tab. From there, set your desired amount of objects (Max of five at the moment) and click on the object you want to set. Once you have set your desired file path (Fbx) and object name, restart Blender. After you boot blender back up your object should be in the Add>Mesh menu."
+    "description": "This addon is used to add your own custom objects to the Add>Mesh menu in Blender. To do so, go to the N pannel and navigate to the Loader tab. From there, set your desired amount of objects (Max of five at the moment) and click on the object you want to set. Once you have set your desired file path (Fbx or Dae) and object name, restart Blender. After you boot blender back up your object should be in the Add>Mesh menu."
 }
 
 import bpy
@@ -311,7 +311,11 @@ class ImportOne(bpy.types.Operator):
         print("New= " + my_path)
         if os.path.exists(my_path):
             print("File loaded")
-            bpy.ops.import_scene.fbx(filepath=my_path)
+            if my_path.endswith("fbx") or my_path.endswith("FBX") :
+                bpy.ops.import_scene.fbx(filepath=my_path)
+            if my_path.endswith("dae") or  my_path.endswith("DAE"):
+                bpy.ops.import_scene.dae(filepath=my_path)
+
         else:
             print("File could not be found")
         for item in bpy.data.materials:
@@ -344,7 +348,11 @@ class ImportTwo(bpy.types.Operator):
         print("New= " + my_path)
         if os.path.exists(my_path):
             print("File loaded")
-            bpy.ops.import_scene.fbx(filepath=my_path)
+            if my_path.endswith("fbx") or my_path.endswith("FBX"):
+                bpy.ops.import_scene.fbx(filepath=my_path)
+            if my_path.endswith("dae") or my_path.endswith("DAE"):
+                bpy.ops.wm.collada_import(filepath = my_path)
+
         else:
             print("File could not be found")
         for item in bpy.data.materials:
