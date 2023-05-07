@@ -1,7 +1,7 @@
 bl_info = {
     "name": "Custom Object Loader",
     "author": "Mastermind",
-    "version": (0, 5,1),
+    "version": (0, 1,6),
     "blender": (3, 40, 0),
     "description": "This addon is used to add your own custom objects to the Add>Mesh menu in Blender. To do so, go to the N pannel and navigate to the Loader tab. From there, set your desired amount of objects (Max of five at the moment) and click on the object you want to set. Once you have set your desired file path (Fbx or Dae) and object name, restart Blender. After you boot blender back up your object should be in the Add>Mesh menu."
 }
@@ -52,9 +52,6 @@ class OBJECT_PT_TextTool(bpy.types.Panel):
     bl_region_type = 'UI'
     bl_category = "Loader"
     def draw(self, context):
-        numberofslots = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "w")
-        numberofslots.write("0")
-        numberofslots.close()
         layout = self.layout
         row = layout.row()
         row = layout.row()
@@ -83,6 +80,7 @@ class OBJECT_PT_TextTool(bpy.types.Panel):
         row = layout.row()
         if numbr >= 4:
             row.operator("wm.textopbasic5", text="Object Five", )
+        row = layout.row()
         if numbr >= 5:
             row.operator("wm.textopbasic6", text="Object Six", )
         row = layout.row()
@@ -97,7 +95,7 @@ class WM_OT_slot_numb(bpy.types.Operator):
         File = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "r")
         numb = int(File.read(100))
         File.close()
-        if numb != 4:
+        if numb != 5:
             numb += 1
         file1 = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "a")
         file1.truncate(0)
