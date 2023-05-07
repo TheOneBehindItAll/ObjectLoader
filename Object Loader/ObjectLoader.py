@@ -43,6 +43,7 @@ else:
     numberofslots = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "w")
     #numberofslots.truncate(0)
     numberofslots.write("0")
+    numberofslots.close()
 texts = ""
 class OBJECT_PT_TextTool(bpy.types.Panel):
     bl_label = "PrivativeObjectLoader"
@@ -51,6 +52,9 @@ class OBJECT_PT_TextTool(bpy.types.Panel):
     bl_region_type = 'UI'
     bl_category = "Loader"
     def draw(self, context):
+        numberofslots = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "w")
+        numberofslots.write("0")
+        numberofslots.close()
         layout = self.layout
         row = layout.row()
         row = layout.row()
@@ -79,6 +83,8 @@ class OBJECT_PT_TextTool(bpy.types.Panel):
         row = layout.row()
         if numbr >= 4:
             row.operator("wm.textopbasic5", text="Object Five", )
+        if numbr >= 5:
+            row.operator("wm.textopbasic6", text="Object Six", )
         row = layout.row()
         row.label(text="Restart Blender for changes to take effect")
 selected_faces = None
