@@ -1,7 +1,7 @@
 bl_info = {
     "name": "Custom Object Loader",
     "author": "Mastermind",
-    "version": (0, 1,6),
+    "version": (0, 1,8),
     "blender": (3, 40, 0),
     "description": "This addon is used to add your own custom objects to the Add>Mesh menu in Blender. To do so, go to the N pannel and navigate to the Loader tab. From there, set your desired amount of objects (Max of five at the moment) and click on the object you want to set. Once you have set your desired file path (Fbx or Dae) and object name, restart Blender. After you boot blender back up your object should be in the Add>Mesh menu."
 }
@@ -39,9 +39,10 @@ else:
     f = open(str(Path.home()) + "\Documents\ObjectLoader\SlotFiveName.txt", "x")
     f = open(str(Path.home()) + "\Documents\ObjectLoader\SlotSix.txt", "x")
     f = open(str(Path.home()) + "\Documents\ObjectLoader\SlotSixName.txt", "x")
+    f = open(str(Path.home()) + "\Documents\ObjectLoader\SlotSev.txt", "x")
+    f = open(str(Path.home()) + "\Documents\ObjectLoader\SlotSevName.txt", "x")
     b = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "x")
     numberofslots = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "w")
-    #numberofslots.truncate(0)
     numberofslots.write("0")
     numberofslots.close()
 texts = ""
@@ -84,6 +85,9 @@ class OBJECT_PT_TextTool(bpy.types.Panel):
         if numbr >= 5:
             row.operator("wm.textopbasic6", text="Object Six", )
         row = layout.row()
+        if numbr >= 6:
+            row.operator("wm.textopbasic7", text="Object Seven", )
+        row = layout.row()
         row.label(text="Restart Blender for changes to take effect")
 selected_faces = None
 class WM_OT_slot_numb(bpy.types.Operator):
@@ -95,7 +99,7 @@ class WM_OT_slot_numb(bpy.types.Operator):
         File = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "r")
         numb = int(File.read(100))
         File.close()
-        if numb != 5:
+        if numb != 6:
             numb += 1
         file1 = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "a")
         file1.truncate(0)
@@ -326,6 +330,38 @@ class WM_OT_textOpBasic6(bpy.types.Operator):
         file2.close()
         return {'FINISHED'}
 
+class WM_OT_textOpBasic7(bpy.types.Operator):
+    """Set The objects7"""
+    bl_idname = "wm.textopbasic7"
+    bl_label = "Paste the fbx file path"
+    home = str(Path.home())
+    file1 = open(str(Path.home())+"\Documents\ObjectLoader\SlotSev.txt", "r")
+    file2 = open(str(Path.home())+"\Documents\ObjectLoader\SlotSevName.txt", "r")
+    text: bpy.props.StringProperty(name="Set your filepath", default=file1.read(100))
+    text2: bpy.props.StringProperty(name="Set the name", default=file2.read(100))
+    file1.close()
+    file2.close()
+    selected_faces = None
+    def __init__(self):
+        selected_faces = None
+    def invoke(self, context, event):
+        wm = context.window_manager
+        return wm.invoke_props_dialog(self)
+    def execute(self, context):
+        selected_faces = self.text
+        home = str(Path.home())
+        file1 = open(str(Path.home())+"\Documents\ObjectLoader\SlotSev.txt", "a")
+        file1.truncate(0)
+        file1.write(selected_faces)
+        file1.close()
+        print("" + selected_faces)
+        nameFile = self.text2
+        file2 = open(str(Path.home())+"\Documents\ObjectLoader\SlotSevName.txt", "a")
+        file2.truncate(0)
+        file2.write(nameFile)
+        file2.close()
+        return {'FINISHED'}
+
 class ImportOne(bpy.types.Operator):
     """ImportOne"""
     bl_idname = "add.importone"
@@ -353,6 +389,8 @@ class ImportOne(bpy.types.Operator):
                 bpy.ops.import_scene.fbx(filepath=my_path)
             if my_path.endswith("dae") or  my_path.endswith("DAE"):
                 bpy.ops.import_scene.dae(filepath=my_path)
+            if my_path.endswith("obj") or  my_path.endswith("OBJ"):
+                bpy.ops.import_scene.obj(filepath=my_path)
 
         else:
             print("File could not be found")
@@ -390,6 +428,8 @@ class ImportTwo(bpy.types.Operator):
                 bpy.ops.import_scene.fbx(filepath=my_path)
             if my_path.endswith("dae") or my_path.endswith("DAE"):
                 bpy.ops.wm.collada_import(filepath = my_path)
+            if my_path.endswith("obj") or my_path.endswith("OBJ"):
+                bpy.ops.import_scene.obj(filepath=my_path)
 
         else:
             print("File could not be found")
@@ -418,7 +458,12 @@ class ImportThree(bpy.types.Operator):
             print("Removing marks")
         if os.path.exists(my_path):
             print("File loaded")
-            bpy.ops.import_scene.fbx(filepath=my_path)
+            if my_path.endswith("fbx") or my_path.endswith("FBX"):
+                bpy.ops.import_scene.fbx(filepath=my_path)
+            if my_path.endswith("dae") or my_path.endswith("DAE"):
+                bpy.ops.wm.collada_import(filepath=my_path)
+            if my_path.endswith("obj") or my_path.endswith("OBJ"):
+                bpy.ops.import_scene.obj(filepath=my_path)
         else:
             print("File could not be found")
         for item in bpy.data.materials:
@@ -447,7 +492,12 @@ class ImportFour(bpy.types.Operator):
             print("Removing marks")
         if os.path.exists(my_path):
             print("File loaded")
-            bpy.ops.import_scene.fbx(filepath=my_path)
+            if my_path.endswith("fbx") or my_path.endswith("FBX"):
+                bpy.ops.import_scene.fbx(filepath=my_path)
+            if my_path.endswith("dae") or my_path.endswith("DAE"):
+                bpy.ops.wm.collada_import(filepath=my_path)
+            if my_path.endswith("obj") or my_path.endswith("OBJ"):
+                bpy.ops.import_scene.obj(filepath=my_path)
         else:
             print("File could not be found")
         for item in bpy.data.materials:
@@ -475,7 +525,12 @@ class ImportFive(bpy.types.Operator):
             print("Removing marks")
         if os.path.exists(my_path):
             print("File loaded")
-            bpy.ops.import_scene.fbx(filepath=my_path)
+            if my_path.endswith("fbx") or my_path.endswith("FBX"):
+                bpy.ops.import_scene.fbx(filepath=my_path)
+            if my_path.endswith("dae") or my_path.endswith("DAE"):
+                bpy.ops.wm.collada_import(filepath=my_path)
+            if my_path.endswith("obj") or my_path.endswith("OBJ"):
+                bpy.ops.import_scene.obj(filepath=my_path)
         else:
             print("File could not be found")
         for item in bpy.data.materials:
@@ -502,7 +557,44 @@ class ImportSix(bpy.types.Operator):
             print("Removing marks")
         if os.path.exists(my_path):
             print("File loaded")
-            bpy.ops.import_scene.fbx(filepath=my_path)
+            if my_path.endswith("fbx") or my_path.endswith("FBX"):
+                bpy.ops.import_scene.fbx(filepath=my_path)
+            if my_path.endswith("dae") or my_path.endswith("DAE"):
+                bpy.ops.wm.collada_import(filepath=my_path)
+            if my_path.endswith("obj") or my_path.endswith("OBJ"):
+                bpy.ops.import_scene.obj(filepath=my_path)
+        else:
+            print("File could not be found")
+        for item in bpy.data.materials:
+            item.blend_method = 'OPAQUE'
+        return {'FINISHED'}  # Lets Blender know the operator finished successfully.
+
+class ImportSev(bpy.types.Operator):
+    """ImportSev"""  # Use this as a tooltip for menu items and buttons.
+    bl_idname = "add.importsev"  # Unique identifier for buttons and menu items to reference.
+    home = str(Path.home())
+    file1 = open(str(Path.home())+"\Documents/ObjectLoader/SlotSevName.txt", "r")
+    my_path = file1.read(100)
+    bl_label = my_path  # Display name in the interface.
+    bl_options = {'REGISTER', 'UNDO'}
+    def execute(self, context):
+        home = str(Path.home())
+        file1 = open(str(Path.home())+"\Documents/ObjectLoader/SlotSev.txt", "r")
+        my_path = file1.read(100)
+        if my_path == "":
+            my_path = "ADD OBJECT HERE"
+        file1.close()
+        if my_path.startswith('"'):
+            my_path = my_path[1:len(my_path) - 1]
+            print("Removing marks")
+        if os.path.exists(my_path):
+            print("File loaded")
+            if my_path.endswith("fbx") or my_path.endswith("FBX"):
+                bpy.ops.import_scene.fbx(filepath=my_path)
+            if my_path.endswith("dae") or my_path.endswith("DAE"):
+                bpy.ops.wm.collada_import(filepath=my_path)
+            if my_path.endswith("obj") or my_path.endswith("OBJ"):
+                bpy.ops.import_scene.obj(filepath=my_path)
         else:
             print("File could not be found")
         for item in bpy.data.materials:
@@ -525,6 +617,8 @@ def menu_func(self, context):
         self.layout.operator(ImportFive.bl_idname)
     if numbr >= 5:
         self.layout.operator(ImportSix.bl_idname)
+    if numbr >= 6:
+        self.layout.operator(ImportSev.bl_idname)
 
 def register():
     bpy.utils.register_class(WM_OT_slot_numb)
@@ -535,6 +629,7 @@ def register():
     bpy.utils.register_class(ImportFour)
     bpy.utils.register_class(ImportFive)
     bpy.utils.register_class(ImportSix)
+    bpy.utils.register_class(ImportSev)
     bpy.types.VIEW3D_MT_mesh_add.append(menu_func)
     bpy.utils.register_class(OBJECT_PT_TextTool)
     bpy.utils.register_class(WM_OT_textOpBasic)
@@ -543,6 +638,7 @@ def register():
     bpy.utils.register_class(WM_OT_textOpBasic4)
     bpy.utils.register_class(WM_OT_textOpBasic5)
     bpy.utils.register_class(WM_OT_textOpBasic6)
+    bpy.utils.register_class(WM_OT_textOpBasic7)
 
 def unregister():
     slotnumb2 = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "r")
@@ -556,6 +652,7 @@ def unregister():
     bpy.utils.unregister_class(ImportFour)
     bpy.utils.unregister_class(ImportFive)
     bpy.utils.unregister_class(ImportSix)
+    bpy.utils.unregister_class(ImportSev)
     bpy.utils.unregister_class(OBJECT_PT_TextTool)
     try:
         bpy.utils.unregister_class(WM_OT_textOpBasic)
@@ -582,6 +679,10 @@ def unregister():
         print("")
     try:
         bpy.utils.unregister_class(WM_OT_textOpBasic6)
+    except:
+        print("")
+    try:
+        bpy.utils.unregister_class(WM_OT_textOpBasic7)
     except:
         print("")
 
