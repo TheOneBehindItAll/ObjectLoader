@@ -2,4 +2,4 @@ Thank you for downloading this addon. If you could I would really appreciate if 
 Comments/Feedback -The Mastermind#3395 on Discord
 
 How to use:
-After installing/enabling the addon, go into the N panel and navigate to the "Loader" tab. Once there, click on the slot that you wish to use. Paste in the path to the file you want to load (FBX only at the moment) The quotation marks will be removed if needed. Then type in the name you want it to show up under. Once done, Close and reopen Blender for the changes to take effect. Now when you go to Add>Mesh your object should show up under the name you gave it. 
+After installing/enabling the addon, go into the N panel and navigate to the "Loader" tab. Once there, click on the slot that you wish to use. Paste in the path to the file you want to load (FBX, OBJ, and DAE only at the moment) The quotation marks will be removed if needed. Then type in the name you want it to show up under. Once done, Close and reopen Blender for the changes to take effect. Now when you go to Add>Mesh your object should show up under the name you gave it. 
