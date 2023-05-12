@@ -41,6 +41,9 @@ else:
     f = open(str(Path.home()) + "\Documents\ObjectLoader\SlotSixName.txt", "x")
     f = open(str(Path.home()) + "\Documents\ObjectLoader\SlotSev.txt", "x")
     f = open(str(Path.home()) + "\Documents\ObjectLoader\SlotSevName.txt", "x")
+    f = open(str(Path.home()) + "\Documents\ObjectLoader\SlotEight.txt", "x")
+    f = open(str(Path.home()) + "\Documents\ObjectLoader\SlotEightName.txt", "x")
+    f.close()
     b = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "x")
     numberofslots = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "w")
     numberofslots.write("0")
@@ -87,6 +90,9 @@ class OBJECT_PT_TextTool(bpy.types.Panel):
         row = layout.row()
         if numbr >= 6:
             row.operator("wm.textopbasic7", text="Object Seven", )
+        row = layout.row()
+        if numbr >= 7:
+            row.operator("wm.textopbasic8", text="Object Eight", )
         row = layout.row()
         row.label(text="Restart Blender for changes to take effect")
 selected_faces = None
@@ -362,6 +368,38 @@ class WM_OT_textOpBasic7(bpy.types.Operator):
         file2.close()
         return {'FINISHED'}
 
+class WM_OT_textOpBasic8(bpy.types.Operator):
+    """Set The objects8"""
+    bl_idname = "wm.textopbasic8"
+    bl_label = "Paste the fbx file path"
+    home = str(Path.home())
+    file1 = open(str(Path.home())+"\Documents\ObjectLoader\SlotEight.txt", "r")
+    file2 = open(str(Path.home())+"\Documents\ObjectLoader\SlotEightName.txt", "r")
+    text: bpy.props.StringProperty(name="Set your filepath", default=file1.read(100))
+    text2: bpy.props.StringProperty(name="Set the name", default=file2.read(100))
+    file1.close()
+    file2.close()
+    selected_faces = None
+    def __init__(self):
+        selected_faces = None
+    def invoke(self, context, event):
+        wm = context.window_manager
+        return wm.invoke_props_dialog(self)
+    def execute(self, context):
+        selected_faces = self.text
+        home = str(Path.home())
+        file1 = open(str(Path.home())+"\Documents\ObjectLoader\SlotEight.txt", "a")
+        file1.truncate(0)
+        file1.write(selected_faces)
+        file1.close()
+        print("" + selected_faces)
+        nameFile = self.text2
+        file2 = open(str(Path.home())+"\Documents\ObjectLoader\SlotEightName.txt", "a")
+        file2.truncate(0)
+        file2.write(nameFile)
+        file2.close()
+        return {'FINISHED'}
+
 class ImportOne(bpy.types.Operator):
     """ImportOne"""
     bl_idname = "add.importone"
@@ -601,6 +639,38 @@ class ImportSev(bpy.types.Operator):
             item.blend_method = 'OPAQUE'
         return {'FINISHED'}  # Lets Blender know the operator finished successfully.
 
+class ImportEight(bpy.types.Operator):
+    """ImportEight"""  # Use this as a tooltip for menu items and buttons.
+    bl_idname = "add.importeight"  # Unique identifier for buttons and menu items to reference.
+    home = str(Path.home())
+    file1 = open(str(Path.home())+"\Documents/ObjectLoader/SlotEightName.txt", "r")
+    my_path = file1.read(100)
+    bl_label = my_path  # Display name in the interface.
+    bl_options = {'REGISTER', 'UNDO'}
+    def execute(self, context):
+        home = str(Path.home())
+        file1 = open(str(Path.home())+"\Documents/ObjectLoader/SlotEight.txt", "r")
+        my_path = file1.read(100)
+        if my_path == "":
+            my_path = "ADD OBJECT HERE"
+        file1.close()
+        if my_path.startswith('"'):
+            my_path = my_path[1:len(my_path) - 1]
+            print("Removing marks")
+        if os.path.exists(my_path):
+            print("File loaded")
+            if my_path.endswith("fbx") or my_path.endswith("FBX"):
+                bpy.ops.import_scene.fbx(filepath=my_path)
+            if my_path.endswith("dae") or my_path.endswith("DAE"):
+                bpy.ops.wm.collada_import(filepath=my_path)
+            if my_path.endswith("obj") or my_path.endswith("OBJ"):
+                bpy.ops.import_scene.obj(filepath=my_path)
+        else:
+            print("File could not be found")
+        for item in bpy.data.materials:
+            item.blend_method = 'OPAQUE'
+        return {'FINISHED'}  # Lets Blender know the operator finished successfully.
+
 
 def menu_func(self, context):
     file1 = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "r")
@@ -619,6 +689,8 @@ def menu_func(self, context):
         self.layout.operator(ImportSix.bl_idname)
     if numbr >= 6:
         self.layout.operator(ImportSev.bl_idname)
+    if numbr >= 7:
+        self.layout.operator(ImportSev.bl_idname)
 
 def register():
     bpy.utils.register_class(WM_OT_slot_numb)
@@ -630,6 +702,7 @@ def register():
     bpy.utils.register_class(ImportFive)
     bpy.utils.register_class(ImportSix)
     bpy.utils.register_class(ImportSev)
+    bpy.utils.register_class(ImportEight)
     bpy.types.VIEW3D_MT_mesh_add.append(menu_func)
     bpy.utils.register_class(OBJECT_PT_TextTool)
     bpy.utils.register_class(WM_OT_textOpBasic)
@@ -639,6 +712,7 @@ def register():
     bpy.utils.register_class(WM_OT_textOpBasic5)
     bpy.utils.register_class(WM_OT_textOpBasic6)
     bpy.utils.register_class(WM_OT_textOpBasic7)
+    bpy.utils.register_class(WM_OT_textOpBasic8)
 
 def unregister():
     slotnumb2 = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "r")
@@ -653,6 +727,7 @@ def unregister():
     bpy.utils.unregister_class(ImportFive)
     bpy.utils.unregister_class(ImportSix)
     bpy.utils.unregister_class(ImportSev)
+    bpy.utils.unregister_class(ImportEight)
     bpy.utils.unregister_class(OBJECT_PT_TextTool)
     try:
         bpy.utils.unregister_class(WM_OT_textOpBasic)
@@ -683,6 +758,10 @@ def unregister():
         print("")
     try:
         bpy.utils.unregister_class(WM_OT_textOpBasic7)
+    except:
+
+    try:
+        bpy.utils.unregister_class(WM_OT_textOpBasic8)
     except:
         print("")
 
