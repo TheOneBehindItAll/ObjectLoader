@@ -1,8 +1,8 @@
 bl_info = {
     "name": "Custom Object Loader",
     "author": "Mastermind",
-    "version": (0, 1,8),
-    "blender": (3, 40, 0),
+    "version": (0, 1,9),
+    "blender": (3, 50, 0),
     "description": "This addon is used to add your own custom objects to the Add>Mesh menu in Blender. To do so, go to the N pannel and navigate to the Loader tab. From there, set your desired amount of objects (Max of eight at the moment) and click on the object you want to set. Once you have set your desired file path (Fbx, Obj, or Dae) and object name, restart Blender. After you boot blender back up your object should be in the Add>Mesh menu."
 }
 
@@ -59,7 +59,7 @@ class OBJECT_PT_TextTool(bpy.types.Panel):
         layout = self.layout
         row = layout.row()
         row = layout.row()
-        row.label(text= "Custom object loader by The Mastermind#3395")
+        row.label(text= "Custom object loader by TheMastermind#3395")
         row = layout.column()
         file1 = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "r")
         numbr = int(file1.read(100))
@@ -135,7 +135,7 @@ class WM_OT_slot_numbMinus(bpy.types.Operator):
 class WM_OT_textOpBasic(bpy.types.Operator):
     """Set The objects"""
     bl_idname = "wm.textopbasic"
-    bl_label = "Paste the fbx file path"
+    bl_label = "Paste the file path here"
     home = str(Path.home())
     file1 = open(str(Path.home())+"\Documents\ObjectLoader\SlotOne.txt", "r")
     file2 = open(str(Path.home())+"\Documents\ObjectLoader\SlotOneName.txt", "r")
@@ -172,7 +172,7 @@ class WM_OT_textOpBasic(bpy.types.Operator):
 class WM_OT_textOpBasic2(bpy.types.Operator):
     """Set The objects2"""
     bl_idname = "wm.textopbasic2"
-    bl_label = "Paste the fbx file path"
+    bl_label = "Paste the file path here"
     home = str(Path.home())
     file1 = open(str(Path.home())+"\Documents\ObjectLoader\SlotTwo.txt", "r")
     file2 = open(str(Path.home())+"\Documents\ObjectLoader\SlotTwoName.txt", "r")
@@ -207,7 +207,7 @@ class WM_OT_textOpBasic2(bpy.types.Operator):
 class WM_OT_textOpBasic3(bpy.types.Operator):
     """Set The objects3"""
     bl_idname = "wm.textopbasic3"
-    bl_label = "Paste the fbx file path"
+    bl_label = "Paste the file path here"
     home = str(Path.home())
     file1 = open(str(Path.home())+"\Documents\ObjectLoader\SlotThree.txt", "r")
     file2 = open(str(Path.home())+"\Documents\ObjectLoader\SlotThreeName.txt", "r")
@@ -241,7 +241,7 @@ class WM_OT_textOpBasic3(bpy.types.Operator):
 class WM_OT_textOpBasic4(bpy.types.Operator):
     """Set The objects4"""
     bl_idname = "wm.textopbasic4"
-    bl_label = "Paste the fbx file path"
+    bl_label = "Paste the file path here"
     home = str(Path.home())
     file1 = open(str(Path.home())+"\Documents\ObjectLoader\SlotFour.txt", "r")
     file2 = open(str(Path.home())+"\Documents\ObjectLoader\SlotFourName.txt", "r")
@@ -275,7 +275,7 @@ class WM_OT_textOpBasic4(bpy.types.Operator):
 class WM_OT_textOpBasic5(bpy.types.Operator):
     """Set The objects5"""
     bl_idname = "wm.textopbasic5"
-    bl_label = "Paste the fbx file path"
+    bl_label = "Paste the file path here"
     home = str(Path.home())
     file1 = open(str(Path.home())+"\Documents\ObjectLoader\SlotFive.txt", "r")
     file2 = open(str(Path.home())+"\Documents\ObjectLoader\SlotFiveName.txt", "r")
@@ -307,7 +307,7 @@ class WM_OT_textOpBasic5(bpy.types.Operator):
 class WM_OT_textOpBasic6(bpy.types.Operator):
     """Set The objects6"""
     bl_idname = "wm.textopbasic6"
-    bl_label = "Paste the fbx file path"
+    bl_label = "Paste the file path here"
     home = str(Path.home())
     file1 = open(str(Path.home())+"\Documents\ObjectLoader\SlotSix.txt", "r")
     file2 = open(str(Path.home())+"\Documents\ObjectLoader\SlotSixName.txt", "r")
@@ -339,7 +339,7 @@ class WM_OT_textOpBasic6(bpy.types.Operator):
 class WM_OT_textOpBasic7(bpy.types.Operator):
     """Set The objects7"""
     bl_idname = "wm.textopbasic7"
-    bl_label = "Paste the fbx file path"
+    bl_label = "Paste the file path here"
     home = str(Path.home())
     file1 = open(str(Path.home())+"\Documents\ObjectLoader\SlotSev.txt", "r")
     file2 = open(str(Path.home())+"\Documents\ObjectLoader\SlotSevName.txt", "r")
@@ -371,7 +371,7 @@ class WM_OT_textOpBasic7(bpy.types.Operator):
 class WM_OT_textOpBasic8(bpy.types.Operator):
     """Set The objects8"""
     bl_idname = "wm.textopbasic8"
-    bl_label = "Paste the fbx file path"
+    bl_label = "Paste the file path here"
     home = str(Path.home())
     file1 = open(str(Path.home())+"\Documents\ObjectLoader\SlotEight.txt", "r")
     file2 = open(str(Path.home())+"\Documents\ObjectLoader\SlotEightName.txt", "r")
