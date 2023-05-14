@@ -482,6 +482,8 @@ class ImportThree(bpy.types.Operator):
     home = str(Path.home())
     file1 = open(str(Path.home())+"\Documents/ObjectLoader/SlotThreeName.txt", "r")
     my_path = file1.read(100)
+    if my_path == "":
+        my_path = "ADD OBJECT HERE"
     bl_label = my_path  # Display name in the interface.
     bl_options = {'REGISTER', 'UNDO'}
     def execute(self, context):
@@ -515,6 +517,8 @@ class ImportFour(bpy.types.Operator):
     home = str(Path.home())
     file1 = open(str(Path.home())+"\Documents/ObjectLoader/SlotFourName.txt", "r")
     my_path = file1.read(100)
+    if my_path == "":
+        my_path = "ADD OBJECT HERE"
     bl_label = my_path
     bl_options = {'REGISTER', 'UNDO'}
 
@@ -549,6 +553,8 @@ class ImportFive(bpy.types.Operator):
     home = str(Path.home())
     file1 = open(str(Path.home())+"\Documents/ObjectLoader/SlotFiveName.txt", "r")
     my_path = file1.read(100)
+    if my_path == "":
+        my_path = "ADD OBJECT HERE"
     bl_label = my_path  # Display name in the interface.
     bl_options = {'REGISTER', 'UNDO'}
     def execute(self, context):
@@ -581,6 +587,8 @@ class ImportSix(bpy.types.Operator):
     home = str(Path.home())
     file1 = open(str(Path.home())+"\Documents/ObjectLoader/SlotSixName.txt", "r")
     my_path = file1.read(100)
+    if my_path == "":
+        my_path = "ADD OBJECT HERE"
     bl_label = my_path  # Display name in the interface.
     bl_options = {'REGISTER', 'UNDO'}
     def execute(self, context):
@@ -613,6 +621,8 @@ class ImportSev(bpy.types.Operator):
     home = str(Path.home())
     file1 = open(str(Path.home())+"\Documents/ObjectLoader/SlotSevName.txt", "r")
     my_path = file1.read(100)
+    if my_path == "":
+        my_path = "ADD OBJECT HERE"
     bl_label = my_path  # Display name in the interface.
     bl_options = {'REGISTER', 'UNDO'}
     def execute(self, context):
@@ -645,6 +655,8 @@ class ImportEight(bpy.types.Operator):
     home = str(Path.home())
     file1 = open(str(Path.home())+"\Documents/ObjectLoader/SlotEightName.txt", "r")
     my_path = file1.read(100)
+    if my_path == "":
+        my_path = "ADD OBJECT HERE"
     bl_label = my_path  # Display name in the interface.
     bl_options = {'REGISTER', 'UNDO'}
     def execute(self, context):
