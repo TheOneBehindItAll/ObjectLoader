@@ -102,11 +102,13 @@ class WM_OT_slot_numb(bpy.types.Operator):
     bl_label = "+"
     home = str(Path.home())
     def execute(self, context):
-        File = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "r")
-        numb = int(File.read(100))
-        File.close()
+        file = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "r")
+        numb = int(file.read(100))
+        file.close()
         if numb != 7:
             numb += 1
+        else:
+            print("Max amount of slots reached")
         file1 = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "a")
         file1.truncate(0)
         file1.write(str(numb))
@@ -119,11 +121,13 @@ class WM_OT_slot_numbMinus(bpy.types.Operator):
     bl_label = "-"
     home = str(Path.home())
     def execute(self, context):
-        File = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "r")
-        numb = int(File.read(100))
-        File.close()
+        file = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "r")
+        numb = int(file.read(100))
+        file.close()
         if numb != 0:
             numb -= 1
+        else:
+            print("Minimum amount of slots reached")
         file1 = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "a")
         file1.truncate(0)
         file1.write(str(numb))
