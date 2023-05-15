@@ -434,7 +434,7 @@ class ImportOne(bpy.types.Operator):
             print("File could not be found")
         for item in bpy.data.materials:
             item.blend_method = 'OPAQUE'
-        return {'FINISHED'}  # Lets Blender know the operator finished successfully.
+        return {'FINISHED'}
     
 
 
@@ -447,7 +447,7 @@ class ImportTwo(bpy.types.Operator):
     my_path = file1.read(100)
     if my_path == "":
         my_path = "ADD OBJECT HERE"
-    bl_label = my_path  # Display name in the interface.
+    bl_label = my_path
     bl_options = {'REGISTER', 'UNDO'}
     def execute(self, context):
         home = str(Path.home())
@@ -473,7 +473,7 @@ class ImportTwo(bpy.types.Operator):
             print("File could not be found")
         for item in bpy.data.materials:
             item.blend_method = 'OPAQUE'
-        return {'FINISHED'}  # Lets Blender know the operator finished successfully.
+        return {'FINISHED'}
 
 
 class ImportThree(bpy.types.Operator):
@@ -484,7 +484,7 @@ class ImportThree(bpy.types.Operator):
     my_path = file1.read(100)
     if my_path == "":
         my_path = "ADD OBJECT HERE"
-    bl_label = my_path  # Display name in the interface.
+    bl_label = my_path
     bl_options = {'REGISTER', 'UNDO'}
     def execute(self, context):
         home = str(Path.home())
@@ -544,18 +544,17 @@ class ImportFour(bpy.types.Operator):
             print("File could not be found")
         for item in bpy.data.materials:
             item.blend_method = 'OPAQUE'
-        return {'FINISHED'}  # Lets Blender know the operator finished successfully.
-
+        return {'FINISHED'}
 
 class ImportFive(bpy.types.Operator):
-    """ImportFive"""  # Use this as a tooltip for menu items and buttons.
-    bl_idname = "add.importfive"  # Unique identifier for buttons and menu items to reference.
+    """ImportFive"""
+    bl_idname = "add.importfive"
     home = str(Path.home())
     file1 = open(str(Path.home())+"\Documents/ObjectLoader/SlotFiveName.txt", "r")
     my_path = file1.read(100)
     if my_path == "":
         my_path = "ADD OBJECT HERE"
-    bl_label = my_path  # Display name in the interface.
+    bl_label = my_path
     bl_options = {'REGISTER', 'UNDO'}
     def execute(self, context):
         home = str(Path.home())
@@ -579,11 +578,11 @@ class ImportFive(bpy.types.Operator):
             print("File could not be found")
         for item in bpy.data.materials:
             item.blend_method = 'OPAQUE'
-        return {'FINISHED'}  # Lets Blender know the operator finished successfully.
+        return {'FINISHED'}
 
 class ImportSix(bpy.types.Operator):
-    """ImportSix"""  # Use this as a tooltip for menu items and buttons.
-    bl_idname = "add.importsix"  # Unique identifier for buttons and menu items to reference.
+    """ImportSix"""
+    bl_idname = "add.importsix"
     home = str(Path.home())
     file1 = open(str(Path.home())+"\Documents/ObjectLoader/SlotSixName.txt", "r")
     my_path = file1.read(100)
@@ -613,17 +612,17 @@ class ImportSix(bpy.types.Operator):
             print("File could not be found")
         for item in bpy.data.materials:
             item.blend_method = 'OPAQUE'
-        return {'FINISHED'}  # Lets Blender know the operator finished successfully.
+        return {'FINISHED'}
 
 class ImportSev(bpy.types.Operator):
-    """ImportSev"""  # Use this as a tooltip for menu items and buttons.
-    bl_idname = "add.importsev"  # Unique identifier for buttons and menu items to reference.
+    """ImportSev"""
+    bl_idname = "add.importsev"
     home = str(Path.home())
     file1 = open(str(Path.home())+"\Documents/ObjectLoader/SlotSevName.txt", "r")
     my_path = file1.read(100)
     if my_path == "":
         my_path = "ADD OBJECT HERE"
-    bl_label = my_path  # Display name in the interface.
+    bl_label = my_path
     bl_options = {'REGISTER', 'UNDO'}
     def execute(self, context):
         home = str(Path.home())
@@ -647,17 +646,17 @@ class ImportSev(bpy.types.Operator):
             print("File could not be found")
         for item in bpy.data.materials:
             item.blend_method = 'OPAQUE'
-        return {'FINISHED'}  # Lets Blender know the operator finished successfully.
+        return {'FINISHED'}
 
 class ImportEight(bpy.types.Operator):
-    """ImportEight"""  # Use this as a tooltip for menu items and buttons.
-    bl_idname = "add.importeight"  # Unique identifier for buttons and menu items to reference.
+    """ImportEight"""
+    bl_idname = "add.importeight"
     home = str(Path.home())
     file1 = open(str(Path.home())+"\Documents/ObjectLoader/SlotEightName.txt", "r")
     my_path = file1.read(100)
     if my_path == "":
         my_path = "ADD OBJECT HERE"
-    bl_label = my_path  # Display name in the interface.
+    bl_label = my_path
     bl_options = {'REGISTER', 'UNDO'}
     def execute(self, context):
         home = str(Path.home())
@@ -681,7 +680,7 @@ class ImportEight(bpy.types.Operator):
             print("File could not be found")
         for item in bpy.data.materials:
             item.blend_method = 'OPAQUE'
-        return {'FINISHED'}  # Lets Blender know the operator finished successfully.
+        return {'FINISHED'}  
 
 
 def menu_func(self, context):
