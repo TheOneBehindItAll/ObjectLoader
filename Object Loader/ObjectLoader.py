@@ -433,6 +433,8 @@ class ImportOne(bpy.types.Operator):
                 bpy.ops.import_scene.dae(filepath=my_path)
             if my_path.endswith("obj") or  my_path.endswith("OBJ"):
                 bpy.ops.import_scene.obj(filepath=my_path)
+            if my_path.endswith("stl") or  my_path.endswith("STL"):
+                bpy.ops.import_mesh.stl(filepath=my_path)
 
         else:
             print("File could not be found")
@@ -472,6 +474,8 @@ class ImportTwo(bpy.types.Operator):
                 bpy.ops.wm.collada_import(filepath = my_path)
             if my_path.endswith("obj") or my_path.endswith("OBJ"):
                 bpy.ops.import_scene.obj(filepath=my_path)
+            if my_path.endswith("stl") or  my_path.endswith("STL"):
+                bpy.ops.import_mesh.stl(filepath=my_path)
 
         else:
             print("File could not be found")
@@ -508,6 +512,8 @@ class ImportThree(bpy.types.Operator):
                 bpy.ops.wm.collada_import(filepath=my_path)
             if my_path.endswith("obj") or my_path.endswith("OBJ"):
                 bpy.ops.import_scene.obj(filepath=my_path)
+            if my_path.endswith("stl") or  my_path.endswith("STL"):
+                bpy.ops.import_mesh.stl(filepath=my_path)
         else:
             print("File could not be found")
         for item in bpy.data.materials:
@@ -544,6 +550,8 @@ class ImportFour(bpy.types.Operator):
                 bpy.ops.wm.collada_import(filepath=my_path)
             if my_path.endswith("obj") or my_path.endswith("OBJ"):
                 bpy.ops.import_scene.obj(filepath=my_path)
+            if my_path.endswith("stl") or  my_path.endswith("STL"):
+                bpy.ops.import_mesh.stl(filepath=my_path)
         else:
             print("File could not be found")
         for item in bpy.data.materials:
@@ -578,6 +586,8 @@ class ImportFive(bpy.types.Operator):
                 bpy.ops.wm.collada_import(filepath=my_path)
             if my_path.endswith("obj") or my_path.endswith("OBJ"):
                 bpy.ops.import_scene.obj(filepath=my_path)
+            if my_path.endswith("stl") or  my_path.endswith("STL"):
+                bpy.ops.import_mesh.stl(filepath=my_path)
         else:
             print("File could not be found")
         for item in bpy.data.materials:
@@ -612,6 +622,8 @@ class ImportSix(bpy.types.Operator):
                 bpy.ops.wm.collada_import(filepath=my_path)
             if my_path.endswith("obj") or my_path.endswith("OBJ"):
                 bpy.ops.import_scene.obj(filepath=my_path)
+            if my_path.endswith("stl") or  my_path.endswith("STL"):
+                bpy.ops.import_mesh.stl(filepath=my_path)
         else:
             print("File could not be found")
         for item in bpy.data.materials:
@@ -646,6 +658,8 @@ class ImportSev(bpy.types.Operator):
                 bpy.ops.wm.collada_import(filepath=my_path)
             if my_path.endswith("obj") or my_path.endswith("OBJ"):
                 bpy.ops.import_scene.obj(filepath=my_path)
+            if my_path.endswith("stl") or  my_path.endswith("STL"):
+                bpy.ops.import_mesh.stl(filepath=my_path)
         else:
             print("File could not be found")
         for item in bpy.data.materials:
@@ -680,6 +694,8 @@ class ImportEight(bpy.types.Operator):
                 bpy.ops.wm.collada_import(filepath=my_path)
             if my_path.endswith("obj") or my_path.endswith("OBJ"):
                 bpy.ops.import_scene.obj(filepath=my_path)
+            if my_path.endswith("stl") or  my_path.endswith("STL"):
+                bpy.ops.import_mesh.stl(filepath=my_path)
         else:
             print("File could not be found")
         for item in bpy.data.materials:
