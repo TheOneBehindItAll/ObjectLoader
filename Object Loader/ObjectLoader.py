@@ -22,10 +22,10 @@ from pathlib import Path
 
 
 if os.path.exists(str(Path.home()) + "\Documents\ObjectLoader"):
-    print("Object Loader Folder Found")
+    print("Found object loader files")
 else:
-    print("Object Loader Folder Not Found")
-    print("Created one at " + str(Path.home()) + " Documents/ObjectLoader")
+    print("Unable to find object loader files")
+    print("Creating one at " + str(Path.home()) + " Documents/ObjectLoader")
     os.mkdir(str(Path.home()) + "\Documents\ObjectLoader", 0o666)
     f = open(str(Path.home()) + "\Documents\ObjectLoader\SlotOne.txt","x")
     f = open(str(Path.home()) + "\Documents\ObjectLoader\SlotOneName.txt", "x")
@@ -44,6 +44,7 @@ else:
     f = open(str(Path.home()) + "\Documents\ObjectLoader\SlotEight.txt", "x")
     f = open(str(Path.home()) + "\Documents\ObjectLoader\SlotEightName.txt", "x")
     f.close()
+    print("Done!")
     b = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "x")
     numberofslots = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "w")
     numberofslots.write("0")
@@ -724,6 +725,7 @@ def menu_func(self, context):
         self.layout.operator(ImportSev.bl_idname)
 
 def register():
+    print("registering clases.....")
     bpy.utils.register_class(WM_OT_slot_numb)
     bpy.utils.register_class(WM_OT_slot_numbMinus)
     bpy.utils.register_class(ImportOne)
@@ -744,6 +746,7 @@ def register():
     bpy.utils.register_class(WM_OT_textOpBasic6)
     bpy.utils.register_class(WM_OT_textOpBasic7)
     bpy.utils.register_class(WM_OT_textOpBasic8)
+    print("Done!")
 
 def unregister():
     slotnumb2 = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "r")
