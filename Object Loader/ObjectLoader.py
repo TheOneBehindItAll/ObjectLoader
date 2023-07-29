@@ -60,7 +60,7 @@ class OBJECT_PT_TextTool(bpy.types.Panel):
         layout = self.layout
         row = layout.row()
         row = layout.row()
-        row.label(text= "Custom object loader by TheMastermind#3395")
+        row.label(text= "Custom object loader by therealmastermind on discord")
         row = layout.column()
         file1 = open(str(Path.home()) + "\Documents\ObjectLoader\SlotNumb.txt", "r")
         numbr = int(file1.read(100))
